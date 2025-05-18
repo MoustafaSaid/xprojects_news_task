@@ -60,3 +60,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 10);
 }
+class CustomDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
+
+  const CustomDetailsAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: () => Navigator.pop(context),
+              child: SvgPicture.asset(
+                IconsConstants.navBar,
+              ),
+            ),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 10);
+}
