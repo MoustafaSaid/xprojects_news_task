@@ -3,10 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_repository_impl.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_repo.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_repo_impl.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_source.dart';
 import 'package:xprojects_news_task/features/home/data/data_source/remote/home_remote_data_source.dart';
+import 'package:xprojects_news_task/features/home/data/models/bookmarked_article_model.dart';
 import 'package:xprojects_news_task/features/home/data/repo_impl/home_repo_impl.dart';
 import 'package:xprojects_news_task/features/home/domain/repo/home_repo.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
@@ -14,6 +17,16 @@ import 'package:xprojects_news_task/features/home/presentation/controller/cubit/
 final sl = GetIt.instance;
 Future<void> init({required Box userPreferenceBox}) async {
 // Future<void> init() async {
+  // Register Hive adapters
+  if (!Hive.isAdapterRegistered(1)) {
+    Hive.registerAdapter(BookmarkedArticleModelAdapter());
+  }
+
+  // Open Hive boxes
+  final bookmarksBox = await Hive.openBox<BookmarkedArticleModel>(
+    BookmarkRepositoryImpl.bookmarksBoxName,
+  );
+
   ///Cubit
   ///layout
   // sl.registerLazySingleton<LayoutCubit>(() => LayoutCubit());
@@ -29,9 +42,17 @@ Future<void> init({required Box userPreferenceBox}) async {
     () => HomeRepoImpl(sl<HomeRemoteDataSource>()),
   );
 
+  // Bookmark Repository
+  sl.registerLazySingleton<BookmarkRepository>(
+    () => BookmarkRepositoryImpl(bookmarksBox: bookmarksBox),
+  );
+
   // Cubit
   sl.registerFactory<HomeCubit>(
-    () => HomeCubit(homeRepo: sl<HomeRepo>()),
+    () => HomeCubit(
+      homeRepo: sl<HomeRepo>(),
+      bookmarkRepository: sl<BookmarkRepository>(),
+    ),
   );
 
   // Dio

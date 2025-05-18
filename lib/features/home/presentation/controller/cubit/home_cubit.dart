@@ -1,11 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
+import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/domain/repo/home_repo.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/states/home_states.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
+  final BookmarkRepository bookmarkRepository;
 
-  HomeCubit({required this.homeRepo}) : super(const HomeState());
+  HomeCubit({
+    required this.homeRepo,
+    required this.bookmarkRepository,
+  }) : super(const HomeState());
 
   Future<void> getNews({
     String query = 'barcelona',
@@ -38,5 +44,25 @@ class HomeCubit extends Cubit<HomeState> {
         ));
       },
     );
+  }
+
+  // Bookmark functions
+  Future<void> toggleBookmark(ArticleModel article) async {
+    final isBookmarked = await bookmarkRepository.isArticleBookmarked(article);
+    if (isBookmarked) {
+      await bookmarkRepository.removeBookmark(article);
+    } else {
+      await bookmarkRepository.addBookmark(article);
+    }
+    // Emit the state to refresh UI
+    emit(state.copyWith());
+  }
+
+  Future<bool> isArticleBookmarked(ArticleModel article) async {
+    return await bookmarkRepository.isArticleBookmarked(article);
+  }
+
+  Future<List<ArticleModel>> getBookmarkedArticles() async {
+    return await bookmarkRepository.getBookmarkedArticles();
   }
 }

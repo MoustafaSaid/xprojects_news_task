@@ -232,6 +232,7 @@ class _HomePageState extends State<HomePage> {
                                       imageUrl: article.urlToImage ?? '',
                                       timeAgo: _formatPublishedDate(
                                           article.publishedAt),
+                                      article: article,
                                       onTap: () {
                                         // Handle tap action here
                                       },
@@ -270,6 +271,7 @@ class _HomePageState extends State<HomePage> {
                                     category: article.source?.name ?? 'Unknown',
                                     title: article.title ?? 'No title',
                                     imageUrl: article.urlToImage ?? '',
+                                    article: article,
                                     onTap: () {
                                       // Handle tap action here
                                     },
