@@ -129,11 +129,15 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
                   ),
                   const SizedBox(height: 6.0),
                   // Title
-                  Text(
-                    widget.title,
-                    style: FontStyles.font18blackW900,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    height: 67,
+                    child: Text(
+                      widget.title,
+                      style: FontStyles.font18blackW900.copyWith(letterSpacing: 0,height: 1.22),
+                      maxLines: 3,
+
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),

@@ -9,6 +9,8 @@ import 'package:xprojects_news_task/features/home/presentation/controller/states
 import 'package:xprojects_news_task/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:xprojects_news_task/features/home/presentation/widgets/featured_news_card.dart';
 import 'package:xprojects_news_task/features/home/presentation/widgets/horizontal_news_card.dart';
+import 'package:xprojects_news_task/features/news_details/presentation/controller/cubit/news_details_cubit.dart';
+import 'package:xprojects_news_task/features/news_details/presentation/page/news_details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,6 +28,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     // Fetch news when page is initialized
     context.read<HomeCubit>().getNews();
+  }
+
+  // Navigate to news details page
+  void _navigateToNewsDetails(ArticleModel article) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => NewsDetailsCubit()..loadArticleDetails(article),
+          child: NewsDetailsPage(article: article),
+        ),
+      ),
+    );
   }
 
   @override
@@ -233,9 +248,8 @@ class _HomePageState extends State<HomePage> {
                                       timeAgo: _formatPublishedDate(
                                           article.publishedAt),
                                       article: article,
-                                      onTap: () {
-                                        // Handle tap action here
-                                      },
+                                      onTap: () =>
+                                          _navigateToNewsDetails(article),
                                     ),
                                   );
                                 },
@@ -272,9 +286,8 @@ class _HomePageState extends State<HomePage> {
                                     title: article.title ?? 'No title',
                                     imageUrl: article.urlToImage ?? '',
                                     article: article,
-                                    onTap: () {
-                                      // Handle tap action here
-                                    },
+                                    onTap: () =>
+                                        _navigateToNewsDetails(article),
                                   );
                                 },
                               ),
