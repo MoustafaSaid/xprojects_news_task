@@ -1,0 +1,185 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fade_shimmer/fade_shimmer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
+import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
+import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
+import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
+
+class FeaturedNewsCard extends StatefulWidget {
+  final String category;
+  final String title;
+  final String imageUrl;
+  final String timeAgo;
+  final VoidCallback? onTap;
+  final ArticleModel article;
+
+  const FeaturedNewsCard({
+    super.key,
+    required this.category,
+    required this.title,
+    required this.imageUrl,
+    required this.timeAgo,
+    required this.article,
+    this.onTap,
+  });
+
+  @override
+  State<FeaturedNewsCard> createState() => _FeaturedNewsCardState();
+}
+
+class _FeaturedNewsCardState extends State<FeaturedNewsCard> {
+  bool _isBookmarked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfBookmarked();
+  }
+
+  Future<void> _checkIfBookmarked() async {
+    final isBookmarked =
+        await context.read<HomeCubit>().isArticleBookmarked(widget.article);
+    if (mounted) {
+      setState(() {
+        _isBookmarked = isBookmarked;
+      });
+    }
+  }
+
+  Future<void> _toggleBookmark() async {
+    await context.read<HomeCubit>().toggleBookmark(widget.article);
+    _checkIfBookmarked();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12.0),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          width: 311,
+          height: 311,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: Stack(
+            children: [
+              widget.imageUrl.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: widget.imageUrl,
+                      fit: BoxFit.cover,
+                      height: 311,
+                      width: 311,
+                      placeholder: (context, url) => FadeShimmer(
+                        height: 311,
+                        width: 311,
+                        radius: 12,
+                        fadeTheme: FadeTheme.light,
+                        highlightColor: Colors.grey[300]!,
+                        baseColor: Colors.grey[200]!,
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        height: 311,
+                        width: 311,
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.image),
+                      ),
+                    )
+                  : Image.asset(
+                      IconsConstants.techImage,
+                      fit: BoxFit.cover,
+                      height: 311,
+                      width: 311,
+                    ),
+              // Category Label
+              Positioned(
+                top: 24,
+                left: 24,
+                child: Text(
+                  widget.category.toUpperCase(),
+                  style: FontStyles.font12blackW900.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              // Time Label
+              Positioned(
+                top: 26,
+                right: 14,
+                child: Text(
+                  widget.timeAgo,
+                  style: FontStyles.font12blackW400.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Positioned(
+                  top: 173,
+                  left: 24,
+                  right: 24,
+                  child: Column(
+                    children: [
+                      Text(
+                        widget.title,
+                        style: FontStyles.font18blackW800.copyWith(
+                          color: Colors.white,
+                        ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8.0),
+                      // Action Buttons
+                    ],
+                  )),
+              Positioned(
+                bottom: 24,
+                left: 24,
+                right: 24,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        _buildActionButton(IconsConstants.chat),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        GestureDetector(
+                          onTap: _toggleBookmark,
+                          child: _buildBookmarkIcon(),
+                        ),
+                      ],
+                    ),
+                    _buildActionButton(IconsConstants.forward),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButton(String iconPath) {
+    return SvgPicture.asset(
+      iconPath,
+    );
+  }
+
+  Widget _buildBookmarkIcon() {
+    return SvgPicture.asset(
+      _isBookmarked
+          ? IconsConstants.bookmarksIcon
+          : IconsConstants.bookmarkOutline,
+      colorFilter: _isBookmarked
+          ? const ColorFilter.mode(Colors.yellow, BlendMode.srcIn)
+          : null,
+    );
+  }
+}
