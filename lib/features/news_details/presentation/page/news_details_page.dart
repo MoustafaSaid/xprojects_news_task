@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/widgets/custom_app_bar.dart';
-import 'package:xprojects_news_task/features/news_details/presentation/widgets/bookmark_button.dart';
 
 class NewsDetailsPage extends StatefulWidget {
   final ArticleModel article;
@@ -22,24 +20,6 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
-      // appBar: AppBar(
-      //   scrolledUnderElevation: 0,
-      //   automaticallyImplyLeading: false,
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   centerTitle: false,
-      //   title: Padding(
-      //     padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 40),
-      //     child: GestureDetector(
-      //       onTap: () => Navigator.pop(context),
-      //       child: SvgPicture.asset(
-      //         'assets/icons/Nav Bar.svg',
-      //         height: 45,
-      //         width: 45,
-      //       ),
-      //     ),
-      //   ),
-      // ),
       appBar: CustomDetailsAppBar(),
       body: SingleChildScrollView(
         child: Column(
@@ -152,7 +132,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Divider(
-                color: Color(0xff141E2814),
+                color: Color(0xff141e2814),
                 height: 2,
                 thickness: 2,
               ),
