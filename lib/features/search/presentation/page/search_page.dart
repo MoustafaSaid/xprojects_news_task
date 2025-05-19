@@ -4,8 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/states/home_states.dart';
+import 'package:xprojects_news_task/features/news_details/presentation/controller/cubit/news_details_cubit.dart';
+import 'package:xprojects_news_task/features/news_details/presentation/page/news_details_page.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/states/search_states.dart';
 
@@ -130,7 +133,139 @@ class _SearchPageState extends State<SearchPage> {
   Widget _buildContentArea(SearchState state) {
     // Loading state
     if (state.searchState == RequestState.loading) {
-      return const Center(child: CircularProgressIndicator());
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Results count shimmer
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32.0, 24.0, 32.0, 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FadeShimmer(
+                    height: 26,
+                    width: 120,
+                    radius: 4,
+                    fadeTheme: FadeTheme.light,
+                    highlightColor: Colors.grey[300]!,
+                    baseColor: Colors.grey[200]!,
+                  ),
+                  FadeShimmer(
+                    height: 24,
+                    width: 24,
+                    radius: 12,
+                    fadeTheme: FadeTheme.light,
+                    highlightColor: Colors.grey[300]!,
+                    baseColor: Colors.grey[200]!,
+                  ),
+                ],
+              ),
+            ),
+
+            // Video cards shimmer
+            SizedBox(
+              height: 140,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(left: 32.0, right: 16.0),
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 224,
+                    margin: const EdgeInsets.only(right: 16.0),
+                    child: FadeShimmer(
+                      height: 140,
+                      width: 224,
+                      radius: 16,
+                      fadeTheme: FadeTheme.light,
+                      highlightColor: Colors.grey[300]!,
+                      baseColor: Colors.grey[200]!,
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            // News section header shimmer
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32.0, 40.0, 32.0, 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FadeShimmer(
+                    height: 26,
+                    width: 80,
+                    radius: 4,
+                    fadeTheme: FadeTheme.light,
+                    highlightColor: Colors.grey[300]!,
+                    baseColor: Colors.grey[200]!,
+                  ),
+                  FadeShimmer(
+                    height: 24,
+                    width: 24,
+                    radius: 12,
+                    fadeTheme: FadeTheme.light,
+                    highlightColor: Colors.grey[300]!,
+                    baseColor: Colors.grey[200]!,
+                  ),
+                ],
+              ),
+            ),
+
+            // News items shimmer
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Column(
+                children: List.generate(
+                  5,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 24.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FadeShimmer(
+                          height: 80,
+                          width: 80,
+                          radius: 8,
+                          fadeTheme: FadeTheme.light,
+                          highlightColor: Colors.grey[300]!,
+                          baseColor: Colors.grey[200]!,
+                        ),
+                        const SizedBox(width: 16.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FadeShimmer(
+                                height: 16,
+                                width: double.infinity,
+                                radius: 4,
+                                fadeTheme: FadeTheme.light,
+                                highlightColor: Colors.grey[300]!,
+                                baseColor: Colors.grey[200]!,
+                              ),
+                              const SizedBox(height: 8.0),
+                              FadeShimmer(
+                                height: 16,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                radius: 4,
+                                fadeTheme: FadeTheme.light,
+                                highlightColor: Colors.grey[300]!,
+                                baseColor: Colors.grey[200]!,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     }
 
     // Error state
@@ -228,6 +363,19 @@ class SearchResultsView extends StatelessWidget {
     required this.searchResults,
   }) : super(key: key);
 
+  void _navigateToNewsDetails(BuildContext context, ArticleModel article) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => NewsDetailsCubit(sl<BookmarkRepository>())
+            ..loadArticleDetails(article),
+          child: NewsDetailsPage(article: article),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (searchResults == null || searchResults!.isEmpty) {
@@ -254,6 +402,11 @@ class SearchResultsView extends StatelessWidget {
       );
     }
 
+    // Calculate counts
+    final videoCount =
+        searchResults!.where((article) => article.urlToImage != null).length;
+    final newsCount = searchResults!.length;
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,7 +418,7 @@ class SearchResultsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${searchResults!.length} Results',
+                  '$videoCount Videos',
                   style: const TextStyle(
                     fontSize: 26.0,
                     fontWeight: FontWeight.w400,
@@ -280,7 +433,7 @@ class SearchResultsView extends StatelessWidget {
           ),
 
           // Video cards horizontal scroll if we have images
-          if (searchResults!.any((article) => article.urlToImage != null)) ...[
+          if (videoCount > 0) ...[
             SizedBox(
               height: 140,
               child: ListView(
@@ -289,9 +442,12 @@ class SearchResultsView extends StatelessWidget {
                 children: searchResults!
                     .where((article) => article.urlToImage != null)
                     .take(5)
-                    .map((article) => VideoCard(
-                          imageUrl: article.urlToImage!,
-                          title: article.title ?? 'No Title',
+                    .map((article) => GestureDetector(
+                          onTap: () => _navigateToNewsDetails(context, article),
+                          child: VideoCard(
+                            imageUrl: article.urlToImage!,
+                            title: article.title ?? 'No Title',
+                          ),
                         ))
                     .toList(),
               ),
@@ -304,9 +460,9 @@ class SearchResultsView extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'News',
-                  style: TextStyle(
+                Text(
+                  '$newsCount News',
+                  style: const TextStyle(
                     fontSize: 26.0,
                     fontWeight: FontWeight.w400,
                     color: Colors.black,
@@ -325,9 +481,12 @@ class SearchResultsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: searchResults!
-                  .map((article) => NewsItemWidget(
-                        title: article.title ?? 'No Title',
-                        imageUrl: article.urlToImage,
+                  .map((article) => GestureDetector(
+                        onTap: () => _navigateToNewsDetails(context, article),
+                        child: NewsItemWidget(
+                          title: article.title ?? 'No Title',
+                          imageUrl: article.urlToImage,
+                        ),
                       ))
                   .toList(),
             ),
