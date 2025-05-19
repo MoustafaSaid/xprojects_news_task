@@ -147,6 +147,7 @@ class _FeaturedNewsCardState extends State<FeaturedNewsCard> {
                         widget.title,
                         style: FontStyles.font18blackW800.copyWith(
                           color: Colors.white,
+
                         ),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,

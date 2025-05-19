@@ -22,12 +22,13 @@ class BottomNavBarWidget extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
               color: Colors.black,
-              blurRadius: 15,
+              blurRadius: 10,
+
             ),
             BoxShadow(
               color: Colors.white,
-              blurRadius: 15,
-              spreadRadius: 4,
+              blurRadius: 10,
+              spreadRadius: 10,
             ),
           ],
           color: Colors.white,
@@ -83,16 +84,10 @@ class BottomNavBarWidget extends StatelessWidget {
                     'assets/icons/Search Icon.svg',
                     colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                   ),
-                  activeIcon:SvgPicture.asset(
+                  activeIcon: SvgPicture.asset(
                     'assets/icons/Search Icon.svg',
-                    colorFilter: ColorFilter.mode(ColorsConstants.primaryColor, BlendMode.srcIn),
-                  ),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: SvgPicture.asset(
-                    'assets/icons/Notifications Icon.svg',
-                    colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(
+                        ColorsConstants.primaryColor, BlendMode.srcIn),
                   ),
                   label: "",
                 ),
@@ -100,6 +95,11 @@ class BottomNavBarWidget extends StatelessWidget {
                   icon: SvgPicture.asset(
                     'assets/icons/Settings Icon.svg',
                     colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                  ),
+                  activeIcon: SvgPicture.asset(
+                    'assets/icons/Settings Icon.svg',
+                    colorFilter: ColorFilter.mode(
+                        ColorsConstants.primaryColor, BlendMode.srcIn),
                   ),
                   label: "",
                 ),

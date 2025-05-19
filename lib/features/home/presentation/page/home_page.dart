@@ -18,6 +18,7 @@ import 'package:xprojects_news_task/features/news_details/presentation/controlle
 import 'package:xprojects_news_task/features/news_details/presentation/page/news_details_page.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
 import 'package:xprojects_news_task/features/search/presentation/page/search_page.dart';
+import 'package:xprojects_news_task/features/settings/presentation/pages/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,6 +34,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    // Listen to language changes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeCubit>().listenToLanguageChanges(context);
+    });
     // Fetch news when page is initialized
     context.read<HomeCubit>().getNews();
   }
@@ -442,6 +447,19 @@ class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
                   _currentIndex = 0;
                 });
               });
+            } else if (index == 3) {
+              // Navigate to Settings page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                ),
+              ).then((_) {
+                // Reset current index to 0 when returning from settings
+                setState(() {
+                  _currentIndex = 0;
+                });
+              });
             }
           },
           items: [
@@ -472,17 +490,21 @@ class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
                   'assets/icons/Search Icon.svg',
                   colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
-                label: ""),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/icons/Notifications Icon.svg',
-                  colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                activeIcon: SvgPicture.asset(
+                  'assets/icons/Search Icon.svg',
+                  colorFilter: ColorFilter.mode(
+                      ColorsConstants.primaryColor, BlendMode.srcIn),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'assets/icons/Settings Icon.svg',
                   colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                ),
+                activeIcon: SvgPicture.asset(
+                  'assets/icons/Settings Icon.svg',
+                  colorFilter: ColorFilter.mode(
+                      ColorsConstants.primaryColor, BlendMode.srcIn),
                 ),
                 label: ""),
           ],

@@ -34,6 +34,10 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     _searchCubit = sl<SearchCubit>();
+    // Listen to language changes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _searchCubit.listenToLanguageChanges(context);
+    });
   }
 
   @override
