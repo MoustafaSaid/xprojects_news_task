@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
@@ -73,12 +74,12 @@ class _BookmarksPageState extends State<BookmarksPage> {
                 children: [
                   // Collections heading
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32.0, vertical: 16.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
                     child: Text(
                       'Collections',
                       style: TextStyle(
-                        fontSize: 32.0,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -87,15 +88,15 @@ class _BookmarksPageState extends State<BookmarksPage> {
 
                   // Collections horizontal list
                   SizedBox(
-                    height: 140,
+                    height: 140.h,
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(left: 32.0),
+                      padding: EdgeInsets.only(left: 32.w),
                       itemCount: collections.length,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: EdgeInsets.only(right: 16.0),
+                          margin: EdgeInsets.only(right: 16.w),
                           child: CollectionCard(
                             title: collections[index].title,
                             imageUrl: collections[index].imageUrl,
@@ -110,11 +111,11 @@ class _BookmarksPageState extends State<BookmarksPage> {
 
                   // Latest bookmarks heading
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(32.0, 40.0, 32.0, 20.0),
+                    padding: EdgeInsets.fromLTRB(32.w, 40.h, 32.w, 20.h),
                     child: Text(
                       'Latest bookmarks',
                       style: TextStyle(
-                        fontSize: 32.0,
+                        fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -125,11 +126,11 @@ class _BookmarksPageState extends State<BookmarksPage> {
                   bookmarkCubit.bookmarkedItems.isEmpty
                       ? Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(32.0),
+                            padding: EdgeInsets.all(32.w),
                             child: Text(
                               'No bookmarks yet. Start adding some!',
                               style: TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 16.sp,
                                 color: Colors.grey,
                               ),
                             ),
@@ -155,7 +156,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                         ),
 
                   // Extra padding for bottom nav bar
-                  const SizedBox(height: 100.0),
+                  SizedBox(height: 100.h),
                 ],
               ),
             );
@@ -209,10 +210,10 @@ class CollectionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 140,
-        height: 140,
+        width: 140.w,
+        height: 140.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(16.r),
           image: DecorationImage(
             image: AssetImage(imageUrl),
             fit: BoxFit.cover,
@@ -223,13 +224,13 @@ class CollectionCard extends StatelessWidget {
             // Gradient overlay
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24.0),
+                borderRadius: BorderRadius.circular(24.r),
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withValues(alpha: 0.7),
+                    Colors.black.withOpacity(0.7),
                   ],
                 ),
               ),
@@ -240,7 +241,7 @@ class CollectionCard extends StatelessWidget {
                 title,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18.0,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -261,12 +262,12 @@ class BookmarkBottomNavBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        height: 58,
-        width: 287,
-        margin: EdgeInsets.symmetric(horizontal: 44, vertical: 35),
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+        height: 58.h,
+        width: 287.w,
+        margin: EdgeInsets.symmetric(horizontal: 44.w, vertical: 35.h),
+        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(28.r),
           boxShadow: const [
             BoxShadow(
               color: Colors.black,

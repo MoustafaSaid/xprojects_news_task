@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../controller/settings_cubit.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -12,31 +13,32 @@ class SettingsPage extends StatelessWidget {
         if (state is SettingsLoaded) {
           return Scaffold(
             backgroundColor: Colors.white,
-            
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Search Language',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Card(
                       color: Colors.white,
                       child: ListTile(
-                        title: const Text('English'),
+                        title: Text('English'),
                         trailing: Radio<String>(
                           value: 'en',
                           groupValue: state.language,
                           onChanged: (value) {
                             if (value != null) {
-                              context.read<SettingsCubit>().changeLanguage(value);
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeLanguage(value);
                             }
                           },
                         ),
@@ -44,15 +46,16 @@ class SettingsPage extends StatelessWidget {
                     ),
                     Card(
                       color: Colors.white,
-
                       child: ListTile(
-                        title: const Text('العربية'),
+                        title: Text('العربية'),
                         trailing: Radio<String>(
                           value: 'ar',
                           groupValue: state.language,
                           onChanged: (value) {
                             if (value != null) {
-                              context.read<SettingsCubit>().changeLanguage(value);
+                              context
+                                  .read<SettingsCubit>()
+                                  .changeLanguage(value);
                             }
                           },
                         ),

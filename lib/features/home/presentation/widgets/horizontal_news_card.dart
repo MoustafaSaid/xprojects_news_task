@@ -4,6 +4,7 @@ import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_events.dart';
@@ -77,42 +78,42 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 24.0),
+        margin: EdgeInsets.only(bottom: 24.h),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image
             ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(16.r),
               child: widget.imageUrl.isNotEmpty
                   ? CachedNetworkImage(
                       imageUrl: widget.imageUrl,
-                      width: 100,
-                      height: 100,
+                      width: 100.w,
+                      height: 100.h,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => FadeShimmer(
-                        height: 100,
-                        width: 100,
-                        radius: 16,
+                        height: 100.h,
+                        width: 100.w,
+                        radius: 16.r,
                         fadeTheme: FadeTheme.light,
                         highlightColor: Colors.grey[300]!,
                         baseColor: Colors.grey[200]!,
                       ),
                       errorWidget: (context, url, error) => Container(
-                        width: 100,
-                        height: 100,
+                        width: 100.w,
+                        height: 100.h,
                         color: Colors.grey[300],
                         child: const Icon(Icons.image),
                       ),
                     )
                   : Image.asset(
                       "assets/icons/tech_image.jpg",
-                      width: 100,
-                      height: 100,
+                      width: 100.w,
+                      height: 100.h,
                       fit: BoxFit.cover,
                     ),
             ),
-            const SizedBox(width: 24.0),
+            SizedBox(width: 24.w),
             // Content
             Expanded(
               child: Column(
@@ -140,16 +141,16 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
                               ? const ColorFilter.mode(
                                   Colors.yellow, BlendMode.srcIn)
                               : null,
-                          width: 24,
-                          height: 24,
+                          width: 24.w,
+                          height: 24.h,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6.0),
+                  SizedBox(height: 6.h),
                   // Title
                   SizedBox(
-                    height: 67,
+                    height: 67.h,
                     child: Text(
                       widget.title,
                       style: FontStyles.font18blackW900

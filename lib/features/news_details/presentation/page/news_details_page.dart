@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/widgets/custom_app_bar.dart';
@@ -51,13 +52,13 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                 children: [
                   // Hero image
                   Container(
-                    height: 375,
+                    height: 375.h,
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(32),
-                      bottomRight: Radius.circular(32),
+                      bottomLeft: Radius.circular(32.r),
+                      bottomRight: Radius.circular(32.r),
                     )),
                     child: widget.article.urlToImage != null &&
                             widget.article.urlToImage!.isNotEmpty
@@ -77,21 +78,21 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                           ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(32),
+                    padding: EdgeInsets.all(32.w),
                     child: Row(
                       children: [
                         CircleAvatar(
-                          radius: 25,
+                          radius: 25.r,
                           backgroundImage: NetworkImage(
                             'https://randomuser.me/api/portraits/men/32.jpg',
                           ),
                         ),
-                        const SizedBox(width: 12.0),
+                        SizedBox(width: 12.w),
                         Text(
                           widget.article.author ?? 'Unknown Author',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 16.0,
+                            fontSize: 16.sp,
                           ),
                         ),
                       ],
@@ -100,24 +101,24 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
 
                   // Category and time
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 0.0),
+                    padding: EdgeInsets.fromLTRB(32.w, 0, 32.w, 0),
                     child: Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 6.0,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 6.h,
                           ),
                           decoration: BoxDecoration(
                             color: Color(0xFFF2F5F9),
-                            borderRadius: BorderRadius.circular(16.0),
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
                           child: Text(
                             widget.article.source?.name?.toUpperCase() ??
                                 'UNKNOWN',
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 12.0,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -128,34 +129,34 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
 
                   // Title
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32.0, vertical: 14),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
                     child: Text(
                       widget.article.title ?? 'No Title',
                       style: TextStyle(
-                        fontSize: 28.0,
+                        fontSize: 28.sp,
                         fontWeight: FontWeight.bold,
                         height: 1.3,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32.0, vertical: 2),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 32.w, vertical: 2.h),
                     child: Text(
                       _formatPublishedDate(widget.article.publishedAt),
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: 14.0,
+                        fontSize: 14.sp,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 30.h,
                   ),
                   // Author info
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    padding: EdgeInsets.symmetric(horizontal: 32.w),
                     child: Divider(
                       color: Color(0xff141E2814),
                       height: 2,
@@ -164,7 +165,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                   ),
                   // Article content
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(32.0, 8.0, 32.0, 24.0),
+                    padding: EdgeInsets.fromLTRB(32.w, 8.h, 32.w, 24.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -172,16 +173,16 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                           widget.article.description ??
                               'No description available',
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 16.sp,
                             height: 1.6,
                             color: Colors.black87,
                           ),
                         ),
-                        const SizedBox(height: 16.0),
+                        SizedBox(height: 16.h),
                         Text(
                           widget.article.content ?? 'No content available',
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 16.sp,
                             height: 1.6,
                             color: Colors.black87,
                           ),
@@ -190,21 +191,19 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                     ),
                   ),
 
-                  const SizedBox(height: 100.0),
+                  SizedBox(height: 100.h),
                 ],
               ),
             ),
             backgroundColor: Colors.white,
             bottomNavigationBar: SafeArea(
               child: Container(
-                height: 58,
-                width: 193,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 91, vertical: 35),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+                height: 58.h,
+                width: 193.w,
+                margin: EdgeInsets.symmetric(horizontal: 91.w, vertical: 35.h),
+                padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 0),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(28.r),
                   boxShadow: const [
                     BoxShadow(
                       color: Colors.black,
