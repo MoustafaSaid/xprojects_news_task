@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
-import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/controller/cubit/bookmark_cubit.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/controller/states/bookmark_states.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/widgets/swipe_to_delete_list.dart';
-import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
-import 'package:xprojects_news_task/features/home/presentation/page/home_page.dart';
 import 'package:xprojects_news_task/features/news_details/presentation/controller/cubit/news_details_cubit.dart';
 import 'package:xprojects_news_task/features/news_details/presentation/page/news_details_page.dart';
 
@@ -229,7 +226,7 @@ class CollectionCard extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black.withOpacity(0.7),
+                    Colors.black.withValues(alpha: 0.7),
                   ],
                 ),
               ),

@@ -54,12 +54,10 @@ class _HomePageState extends State<HomePage> {
         if (state.newsState == RequestState.loaded && state.newsData != null) {
           if (state.newsData!.articles != null) {
             setState(() {
-              final articles = state.newsData?.articles??[];
+              final articles = state.newsData?.articles ?? [];
               if (articles.length > 0) {
                 _featuredNews = articles;
                 _latestNews = articles;
-                // _featuredNews = articles.sublist(0, 5);
-                // _latestNews = articles.sublist(3);
               } else {
                 _featuredNews = [];
                 _latestNews = [];
