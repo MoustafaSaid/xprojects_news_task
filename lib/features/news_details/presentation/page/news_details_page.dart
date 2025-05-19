@@ -90,10 +90,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         SizedBox(width: 12.w),
                         Text(
                           widget.article.author ?? 'Unknown Author',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16.sp,
-                          ),
+                          style: FontStyles.font16blackW400,
                         ),
                       ],
                     ),
@@ -116,11 +113,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                           child: Text(
                             widget.article.source?.name?.toUpperCase() ??
                                 'UNKNOWN',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: FontStyles.font12blackW900,
                           ),
                         ),
                       ],
@@ -133,9 +126,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
                     child: Text(
                       widget.article.title ?? 'No Title',
-                      style: TextStyle(
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.bold,
+                      style: FontStyles.font26blackW400.copyWith(
                         height: 1.3,
                       ),
                     ),
@@ -145,9 +136,8 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         EdgeInsets.symmetric(horizontal: 32.w, vertical: 2.h),
                     child: Text(
                       _formatPublishedDate(widget.article.publishedAt),
-                      style: TextStyle(
+                      style: FontStyles.font14blackW400.copyWith(
                         color: Colors.grey,
-                        fontSize: 14.sp,
                       ),
                     ),
                   ),
@@ -172,8 +162,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         Text(
                           widget.article.description ??
                               'No description available',
-                          style: TextStyle(
-                            fontSize: 16.sp,
+                          style: FontStyles.font16blackW400.copyWith(
                             height: 1.6,
                             color: Colors.black87,
                           ),
@@ -181,8 +170,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         SizedBox(height: 16.h),
                         Text(
                           widget.article.content ?? 'No content available',
-                          style: TextStyle(
-                            fontSize: 16.sp,
+                          style: FontStyles.font16blackW400.copyWith(
                             height: 1.6,
                             color: Colors.black87,
                           ),

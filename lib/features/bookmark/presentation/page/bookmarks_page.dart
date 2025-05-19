@@ -78,11 +78,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                         EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
                     child: Text(
                       'Collections',
-                      style: TextStyle(
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                      style: FontStyles.font36blackW900,
                     ),
                   ),
 
@@ -114,11 +110,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                     padding: EdgeInsets.fromLTRB(32.w, 40.h, 32.w, 20.h),
                     child: Text(
                       'Latest bookmarks',
-                      style: TextStyle(
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                      style: FontStyles.font36blackW900,
                     ),
                   ),
 
@@ -129,8 +121,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                             padding: EdgeInsets.all(32.w),
                             child: Text(
                               'No bookmarks yet. Start adding some!',
-                              style: TextStyle(
-                                fontSize: 16.sp,
+                              style: FontStyles.font16blackW400.copyWith(
                                 color: Colors.grey,
                               ),
                             ),
@@ -239,10 +230,8 @@ class CollectionCard extends StatelessWidget {
             Center(
               child: Text(
                 title,
-                style: TextStyle(
+                style: FontStyles.font18blackW800.copyWith(
                   color: Colors.white,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

@@ -127,8 +127,8 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
                         child: Text(
                           widget.category.toUpperCase(),
                           style: FontStyles.font12blackW900.copyWith(
-                              color:
-                                  ColorsConstants.primaryColorSemitransparent),
+                            color: ColorsConstants.primaryColorSemitransparent,
+                          ),
                         ),
                       ),
                       GestureDetector(
@@ -153,8 +153,10 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
                     height: 67.h,
                     child: Text(
                       widget.title,
-                      style: FontStyles.font18blackW900
-                          .copyWith(letterSpacing: 0, height: 1),
+                      style: FontStyles.font18blackW900.copyWith(
+                        letterSpacing: 0,
+                        height: 1,
+                      ),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),

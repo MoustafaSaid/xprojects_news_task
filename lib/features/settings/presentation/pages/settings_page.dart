@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import '../controller/settings_cubit.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -21,16 +22,14 @@ class SettingsPage extends StatelessWidget {
                   children: [
                     Text(
                       'Search Language',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: FontStyles.font22blackW800,
                     ),
                     SizedBox(height: 16.h),
                     Card(
                       color: Colors.white,
                       child: ListTile(
-                        title: Text('English'),
+                        title:
+                            Text('English', style: FontStyles.font16blackW400),
                         trailing: Radio<String>(
                           value: 'en',
                           groupValue: state.language,
@@ -47,7 +46,8 @@ class SettingsPage extends StatelessWidget {
                     Card(
                       color: Colors.white,
                       child: ListTile(
-                        title: Text('العربية'),
+                        title:
+                            Text('العربية', style: FontStyles.font16blackW400),
                         trailing: Radio<String>(
                           value: 'ar',
                           groupValue: state.language,

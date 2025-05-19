@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 
 class BookmarkNewsCard extends StatelessWidget {
@@ -79,11 +80,7 @@ class BookmarkNewsCard extends StatelessWidget {
                       ),
                       child: Text(
                         article.source?.name?.toUpperCase() ?? 'UNKNOWN',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: FontStyles.font12blackW900,
                       ),
                     ),
 
@@ -94,10 +91,7 @@ class BookmarkNewsCard extends StatelessWidget {
                       article.title ?? 'No title',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: FontStyles.font14blackW800,
                     ),
 
                     SizedBox(height: 4.h),
@@ -105,8 +99,7 @@ class BookmarkNewsCard extends StatelessWidget {
                     // Published date
                     Text(
                       _formatPublishedDate(article.publishedAt),
-                      style: TextStyle(
-                        fontSize: 12.sp,
+                      style: FontStyles.font12blackW400.copyWith(
                         color: Colors.grey,
                       ),
                     ),

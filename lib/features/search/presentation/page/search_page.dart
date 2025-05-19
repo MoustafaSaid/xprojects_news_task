@@ -11,6 +11,7 @@ import 'package:xprojects_news_task/features/news_details/presentation/controlle
 import 'package:xprojects_news_task/features/news_details/presentation/page/news_details_page.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/states/search_states.dart';
+import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -300,12 +301,9 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             // Recent searches
             if (state.recentSearches.isNotEmpty) ...[
-              const Text(
+              Text(
                 'Recent Searches',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: FontStyles.font22blackW800,
               ),
               const SizedBox(height: 16),
               Wrap(
@@ -319,12 +317,9 @@ class _SearchPageState extends State<SearchPage> {
             ],
 
             // Trending topics
-            const Text(
+            Text(
               'Trending Topics',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: FontStyles.font22blackW800,
             ),
             const SizedBox(height: 16),
             Wrap(
@@ -396,8 +391,7 @@ class SearchResultsView extends StatelessWidget {
             const SizedBox(height: 24.0),
             Text(
               'No results found',
-              style: TextStyle(
-                fontSize: 16.0,
+              style: FontStyles.font16blackW400.copyWith(
                 color: Colors.grey[600],
               ),
             ),
@@ -423,11 +417,7 @@ class SearchResultsView extends StatelessWidget {
               children: [
                 Text(
                   '$videoCount Videos',
-                  style: const TextStyle(
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
+                  style: FontStyles.font26blackW400,
                 ),
                 SvgPicture.asset(
                   'assets/icons/arrow-forward-circle-outline.svg',
@@ -466,11 +456,7 @@ class SearchResultsView extends StatelessWidget {
               children: [
                 Text(
                   '$newsCount News',
-                  style: const TextStyle(
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
+                  style: FontStyles.font26blackW400,
                 ),
                 SvgPicture.asset(
                   'assets/icons/arrow-forward-circle-outline.svg',
@@ -595,10 +581,7 @@ class NewsItemWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 24.0),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.w400,
-          color: Colors.black,
+        style: FontStyles.font16blackW400.copyWith(
           height: 1.3,
         ),
       ),
