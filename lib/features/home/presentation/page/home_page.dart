@@ -15,6 +15,8 @@ import 'package:xprojects_news_task/features/home/presentation/widgets/featured_
 import 'package:xprojects_news_task/features/home/presentation/widgets/horizontal_news_card.dart';
 import 'package:xprojects_news_task/features/news_details/presentation/controller/cubit/news_details_cubit.dart';
 import 'package:xprojects_news_task/features/news_details/presentation/page/news_details_page.dart';
+import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
+import 'package:xprojects_news_task/features/search/presentation/page/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -303,7 +305,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        bottomNavigationBar: CustomBottomNavBarWidget(),
+        // bottomNavigationBar: CustomBottomNavBarWidget(),
       ),
     );
   }
@@ -418,6 +420,22 @@ class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
                 ),
               ).then((_) {
                 // Reset current index to 0 when returning from bookmarks
+                setState(() {
+                  _currentIndex = 0;
+                });
+              });
+            } else if (index == 2) {
+              // Navigate to Search page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => sl<SearchCubit>(),
+                    child: const SearchPage(),
+                  ),
+                ),
+              ).then((_) {
+                // Reset current index to 0 when returning from search
                 setState(() {
                   _currentIndex = 0;
                 });

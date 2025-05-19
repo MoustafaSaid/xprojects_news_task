@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_source.dart';
 import 'package:xprojects_news_task/core/di/di.dart' as di;
-import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
-import 'package:xprojects_news_task/features/home/presentation/page/home_page.dart';
+import 'package:xprojects_news_task/features/layout/presentation/controller/cubit/layout_cubit.dart';
+import 'package:xprojects_news_task/features/layout/presentation/page/layout_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'News App',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        splashColor: Colors.transparent
       ),
       home: ScreenUtilInit(
         designSize: const Size(375, 812),
@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return BlocProvider(
-            create: (context) => di.sl<HomeCubit>(),
-            child: const HomePage(),
-          );
+              create: (context) => di.sl<LayoutCubit>(),
+
+              child: const LayoutPage());
         },
       ),
     );
