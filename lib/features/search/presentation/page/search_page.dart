@@ -489,7 +489,6 @@ class SearchResultsView extends StatelessWidget {
                         onTap: () => _navigateToNewsDetails(context, article),
                         child: NewsItemWidget(
                           title: article.title ?? 'No Title',
-                          imageUrl: article.urlToImage,
                         ),
                       ))
                   .toList(),
@@ -584,59 +583,24 @@ class VideoCard extends StatelessWidget {
 
 class NewsItemWidget extends StatelessWidget {
   final String title;
-  final String? imageUrl;
 
   const NewsItemWidget({
     Key? key,
     required this.title,
-    this.imageUrl,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (imageUrl != null) ...[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: CachedNetworkImage(
-                imageUrl: imageUrl!,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => FadeShimmer(
-                  height: 80,
-                  width: 80,
-                  radius: 8,
-                  fadeTheme: FadeTheme.light,
-                  highlightColor: Colors.grey[300]!,
-                  baseColor: Colors.grey[200]!,
-                ),
-                errorWidget: (context, url, error) => Container(
-                  width: 80,
-                  height: 80,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.image),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16.0),
-          ],
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-                height: 1.3,
-              ),
-            ),
-          ),
-        ],
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
+          height: 1.3,
+        ),
       ),
     );
   }
