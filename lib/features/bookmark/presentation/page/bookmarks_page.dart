@@ -28,6 +28,8 @@ class _BookmarksPageState extends State<BookmarksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      backgroundColor: Colors.white,
+
       body: SafeArea(
         child: BlocBuilder<BookmarkCubit, BookmarkState>(
           builder: (context, state) {
@@ -158,7 +160,6 @@ class _BookmarksPageState extends State<BookmarksPage> {
           },
         ),
       ),
-      bottomNavigationBar: BookmarkBottomNavBarWidget(),
     );
   }
 

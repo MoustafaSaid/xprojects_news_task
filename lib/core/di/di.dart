@@ -14,6 +14,11 @@ import 'package:xprojects_news_task/features/home/data/models/bookmarked_article
 import 'package:xprojects_news_task/features/home/data/repo_impl/home_repo_impl.dart';
 import 'package:xprojects_news_task/features/home/domain/repo/home_repo.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
+import 'package:xprojects_news_task/features/layout/presentation/controller/cubit/layout_cubit.dart';
+import 'package:xprojects_news_task/features/search/data/data_source/remote/search_remote_data_source.dart';
+import 'package:xprojects_news_task/features/search/data/repo_impl/search_repo_impl.dart';
+import 'package:xprojects_news_task/features/search/domain/repo/search_repo.dart';
+import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
 
 final sl = GetIt.instance;
 Future<void> init({required Box userPreferenceBox}) async {
@@ -30,7 +35,7 @@ Future<void> init({required Box userPreferenceBox}) async {
 
   ///Cubit
   ///layout
-  // sl.registerLazySingleton<LayoutCubit>(() => LayoutCubit());
+  sl.registerLazySingleton<LayoutCubit>(() => LayoutCubit());
 
   ///Home
   // Remote Data Source
@@ -59,6 +64,25 @@ Future<void> init({required Box userPreferenceBox}) async {
   // Bookmark Cubit
   sl.registerFactory<BookmarkCubit>(
     () => BookmarkCubit(
+      bookmarkRepository: sl<BookmarkRepository>(),
+    ),
+  );
+
+  ///Search
+  // Remote Data Source
+  sl.registerLazySingleton<SearchRemoteDataSource>(
+    () => SearchRemoteDataSource(sl<Dio>(), baseUrl: 'https://newsapi.org'),
+  );
+
+  // Repository
+  sl.registerLazySingleton<SearchRepo>(
+    () => SearchRepoImpl(sl<SearchRemoteDataSource>()),
+  );
+
+  // Cubit
+  sl.registerFactory<SearchCubit>(
+    () => SearchCubit(
+      searchRepo: sl<SearchRepo>(),
       bookmarkRepository: sl<BookmarkRepository>(),
     ),
   );
