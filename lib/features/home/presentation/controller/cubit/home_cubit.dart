@@ -14,7 +14,7 @@ class HomeCubit extends Cubit<HomeState> {
   }) : super(const HomeState());
 
   Future<void> getNews({
-    String query = 'barcelona',
+    String query = "sports",
     String from = '2025-5-1',
     String sortBy = 'publishedAt',
     String apiKey = 'e4941a26a6ed466db07bce82adb1bbd6',
