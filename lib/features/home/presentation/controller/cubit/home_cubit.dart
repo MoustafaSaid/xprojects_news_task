@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_events.dart';
@@ -9,16 +10,25 @@ class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
   final BookmarkRepository bookmarkRepository;
   final BookmarkEvents _bookmarkEvents = BookmarkEvents();
+  StreamSubscription? _bookmarkSubscription;
 
   HomeCubit({
     required this.homeRepo,
     required this.bookmarkRepository,
   }) : super(const HomeState()) {
     // Listen to bookmark changes
-    _bookmarkEvents.bookmarkChanges.listen((article) {
-      // When a bookmark changes, emit a new state to update UI
-      emit(state.copyWith());
+    _bookmarkSubscription = _bookmarkEvents.bookmarkChanges.listen((article) {
+      if (!isClosed) {
+        // When a bookmark changes, emit a new state to update UI
+        emit(state.copyWith());
+      }
     });
+  }
+
+  @override
+  Future<void> close() {
+    _bookmarkSubscription?.cancel();
+    return super.close();
   }
 
   Future<void> getNews({
@@ -28,6 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
     String apiKey = 'e4941a26a6ed466db07bce82adb1bbd6',
     String language = 'en',
   }) async {
+    if (isClosed) return;
     emit(state.copyWith(newsState: RequestState.loading));
 
     final result = await homeRepo.getNews(
@@ -38,24 +49,31 @@ class HomeCubit extends Cubit<HomeState> {
       language: language,
     );
 
+    if (isClosed) return;
+
     result.fold(
       (failure) {
-        emit(state.copyWith(
-          newsState: RequestState.error,
-          message: failure.message,
-        ));
+        if (!isClosed) {
+          emit(state.copyWith(
+            newsState: RequestState.error,
+            message: failure.message,
+          ));
+        }
       },
       (newsData) {
-        emit(state.copyWith(
-          newsState: RequestState.loaded,
-          newsData: newsData,
-        ));
+        if (!isClosed) {
+          emit(state.copyWith(
+            newsState: RequestState.loaded,
+            newsData: newsData,
+          ));
+        }
       },
     );
   }
 
   // Bookmark functions
   Future<void> toggleBookmark(ArticleModel article) async {
+    if (isClosed) return;
     final isBookmarked = await bookmarkRepository.isArticleBookmarked(article);
     if (isBookmarked) {
       await bookmarkRepository.removeBookmark(article);
@@ -67,7 +85,9 @@ class HomeCubit extends Cubit<HomeState> {
     _bookmarkEvents.notifyBookmarkChanged(article);
 
     // Emit the state to refresh UI
-    emit(state.copyWith());
+    if (!isClosed) {
+      emit(state.copyWith());
+    }
   }
 
   Future<bool> isArticleBookmarked(ArticleModel article) async {
