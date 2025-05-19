@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/widgets/custom_app_bar.dart';
+
+import '../../../../core/constants/colors/colors_constants.dart';
+import '../../../../core/theme/font/font_styles.dart';
 
 class NewsDetailsPage extends StatefulWidget {
   final ArticleModel article;
@@ -132,7 +137,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Divider(
-                color: Color(0xff141e2814),
+                color: Color(0xff141E2814),
                 height: 2,
                 thickness: 2,
               ),
@@ -168,6 +173,86 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
           ],
         ),
       ),
+      backgroundColor: Colors.white,
+        bottomNavigationBar:  SafeArea(
+          child: Container(
+            height: 58,
+            width: 193,
+            margin: const EdgeInsets.symmetric(horizontal: 91, vertical: 35),
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black,
+                  blurRadius: 15,
+                ),
+                BoxShadow(
+                  color: Colors.white,
+                  blurRadius: 15,
+                  spreadRadius: 4,
+                ),
+              ],
+              color: Colors.white,
+            ),
+            child: BottomNavigationBar(
+                enableFeedback: false,
+                currentIndex: 2,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                unselectedItemColor: Colors.grey,
+                selectedItemColor: ColorsConstants.primaryColor,
+                unselectedLabelStyle: FontStyles.font12blackW400.copyWith(
+                color: Colors.grey,
+                ),
+                type: BottomNavigationBarType.fixed,
+                elevation: 0,
+                selectedLabelStyle: FontStyles.font12blackW400.copyWith(
+                color: ColorsConstants.primaryColor,
+                ),
+                backgroundColor: Colors.transparent,
+                onTap: (index) {
+                },
+                items: [
+                BottomNavigationBarItem(
+                // activeIcon: SvgPicture.asset(
+                // IconsConstants.chat,
+                // colorFilter: ColorFilter.mode(
+                // ColorsConstants.primaryColor, BlendMode.srcIn),
+                // ),
+                icon: SvgPicture.asset(
+                  IconsConstants.chat,
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                ),
+                label: "",
+                ),
+                BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  IconsConstants.bookmarkOutline,
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                ),
+                activeIcon: SvgPicture.asset(
+                  IconsConstants.bookmarkOutline,
+                colorFilter: ColorFilter.mode(
+                ColorsConstants.primaryColor, BlendMode.srcIn),
+                ),
+                label: "",
+                ),
+                BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  IconsConstants.forward,
+                colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                ),
+                // activeIcon:SvgPicture.asset(
+                //   IconsConstants.forward,
+                // colorFilter: ColorFilter.mode(ColorsConstants.primaryColor, BlendMode.srcIn),
+                // ),
+                label: "",
+                ),
+                ],
+                ),
+          ),
+        )
     );
   }
 
