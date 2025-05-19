@@ -8,7 +8,6 @@ import 'package:xprojects_news_task/features/home/presentation/page/home_page.da
 import 'package:xprojects_news_task/features/layout/presentation/controller/states/layout_states.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
 import 'package:xprojects_news_task/features/search/presentation/page/search_page.dart';
-import 'package:xprojects_news_task/features/settings/presentation/controller/settings_cubit.dart';
 import 'package:xprojects_news_task/features/settings/presentation/pages/settings_page.dart';
 
 class LayoutCubit extends Cubit<LayoutStates> {
