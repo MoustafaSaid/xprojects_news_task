@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository_impl.dart';
@@ -19,6 +20,7 @@ import 'package:xprojects_news_task/features/search/data/data_source/remote/sear
 import 'package:xprojects_news_task/features/search/data/repo_impl/search_repo_impl.dart';
 import 'package:xprojects_news_task/features/search/domain/repo/search_repo.dart';
 import 'package:xprojects_news_task/features/search/presentation/controller/cubit/search_cubit.dart';
+import 'package:xprojects_news_task/features/settings/presentation/controller/settings_cubit.dart';
 
 final sl = GetIt.instance;
 Future<void> init({required Box userPreferenceBox}) async {
@@ -33,9 +35,16 @@ Future<void> init({required Box userPreferenceBox}) async {
     BookmarkRepositoryImpl.bookmarksBoxName,
   );
 
+  // Initialize SharedPreferences
+  final prefs = await SharedPreferences.getInstance();
+
   ///Cubit
   ///layout
   sl.registerLazySingleton<LayoutCubit>(() => LayoutCubit());
+
+  ///Settings
+  final settingsCubit = SettingsCubit(prefs);
+  sl.registerLazySingleton<SettingsCubit>(() => settingsCubit);
 
   ///Home
   // Remote Data Source
@@ -58,6 +67,7 @@ Future<void> init({required Box userPreferenceBox}) async {
     () => HomeCubit(
       homeRepo: sl<HomeRepo>(),
       bookmarkRepository: sl<BookmarkRepository>(),
+      prefs: prefs,
     ),
   );
 
@@ -84,6 +94,7 @@ Future<void> init({required Box userPreferenceBox}) async {
     () => SearchCubit(
       searchRepo: sl<SearchRepo>(),
       bookmarkRepository: sl<BookmarkRepository>(),
+      prefs: prefs,
     ),
   );
 

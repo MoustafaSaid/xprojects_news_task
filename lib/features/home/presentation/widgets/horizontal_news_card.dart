@@ -153,7 +153,7 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
                     child: Text(
                       widget.title,
                       style: FontStyles.font18blackW900
-                          .copyWith(letterSpacing: 0, height: 1.22),
+                          .copyWith(letterSpacing: 0, height: 1),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
