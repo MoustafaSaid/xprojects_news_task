@@ -76,6 +76,10 @@ class BookmarkedArticleModel extends HiveObject {
     );
   }
 
-  // Generate a unique key for the bookmark based on title and url
-  String get bookmarkKey => '${title}_${url}';
+  // Generate a unique key for the bookmark based on url
+  String get bookmarkKey {
+    if (url == null) return '';
+    // Create a hash of the URL to ensure uniqueness while keeping the key short
+    return url!.hashCode.toString();
+  }
 }

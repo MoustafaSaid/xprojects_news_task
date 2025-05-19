@@ -415,8 +415,8 @@ class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => sl<BookmarkCubit>(),
+                  builder: (context) => BlocProvider.value(
+                    value: sl<BookmarkCubit>(),
                     child: BookmarksPage(),
                   ),
                 ),
