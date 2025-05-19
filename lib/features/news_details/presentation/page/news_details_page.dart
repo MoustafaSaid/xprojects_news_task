@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/widgets/custom_app_bar.dart';
@@ -89,7 +91,8 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         ),
                         SizedBox(width: 12.w),
                         Text(
-                          widget.article.author ?? 'Unknown Author',
+                          widget.article.author ??
+                              StringsConstants.unknownAuthor.tr(),
                           style: FontStyles.font16blackW400,
                         ),
                       ],
@@ -125,7 +128,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 32.w, vertical: 14.h),
                     child: Text(
-                      widget.article.title ?? 'No Title',
+                      widget.article.title ?? StringsConstants.noTitle.tr(),
                       style: FontStyles.font26blackW400.copyWith(
                         height: 1.3,
                       ),
@@ -161,7 +164,7 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                       children: [
                         Text(
                           widget.article.description ??
-                              'No description available',
+                              StringsConstants.noDescriptionAvailable.tr(),
                           style: FontStyles.font16blackW400.copyWith(
                             height: 1.6,
                             color: Colors.black87,
@@ -169,7 +172,8 @@ class _NewsDetailsPageState extends State<NewsDetailsPage> {
                         ),
                         SizedBox(height: 16.h),
                         Text(
-                          widget.article.content ?? 'No content available',
+                          widget.article.content ??
+                              StringsConstants.noContentAvailable.tr(),
                           style: FontStyles.font16blackW400.copyWith(
                             height: 1.6,
                             color: Colors.black87,

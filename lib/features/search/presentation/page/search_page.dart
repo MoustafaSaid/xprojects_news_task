@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
@@ -92,9 +94,10 @@ class _SearchPageState extends State<SearchPage> {
                                   color: Colors.white,
                                   fontSize: 16,
                                 ),
-                                decoration: const InputDecoration(
-                                  hintText: 'Virtual Reality',
-                                  hintStyle: TextStyle(
+                                decoration: InputDecoration(
+                                  hintText:
+                                      StringsConstants.virtualReality.tr(),
+                                  hintStyle: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                   ),
@@ -302,7 +305,7 @@ class _SearchPageState extends State<SearchPage> {
             // Recent searches
             if (state.recentSearches.isNotEmpty) ...[
               Text(
-                'Recent Searches',
+                StringsConstants.recentSearches.tr(),
                 style: FontStyles.font22blackW800,
               ),
               const SizedBox(height: 16),
@@ -318,7 +321,7 @@ class _SearchPageState extends State<SearchPage> {
 
             // Trending topics
             Text(
-              'Trending Topics',
+              StringsConstants.trendingTopics.tr(),
               style: FontStyles.font22blackW800,
             ),
             const SizedBox(height: 16),
@@ -390,7 +393,7 @@ class SearchResultsView extends StatelessWidget {
             ),
             const SizedBox(height: 24.0),
             Text(
-              'No results found',
+              StringsConstants.noResultsFound.tr(),
               style: FontStyles.font16blackW400.copyWith(
                 color: Colors.grey[600],
               ),
@@ -416,7 +419,8 @@ class SearchResultsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '$videoCount Videos',
+                  StringsConstants.videosCount
+                      .tr(args: [videoCount.toString()]),
                   style: FontStyles.font26blackW400,
                 ),
                 SvgPicture.asset(
@@ -455,7 +459,7 @@ class SearchResultsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '$newsCount News',
+                  StringsConstants.newsCount.tr(args: [newsCount.toString()]),
                   style: FontStyles.font26blackW400,
                 ),
                 SvgPicture.asset(

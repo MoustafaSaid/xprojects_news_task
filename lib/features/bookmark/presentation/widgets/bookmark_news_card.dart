@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 
@@ -88,7 +90,7 @@ class BookmarkNewsCard extends StatelessWidget {
 
                     // News title
                     Text(
-                      article.title ?? 'No title',
+                      article.title ?? StringsConstants.noTitle.tr(),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: FontStyles.font14blackW800,
@@ -114,20 +116,22 @@ class BookmarkNewsCard extends StatelessWidget {
   }
 
   String _formatPublishedDate(String? publishedAt) {
-    if (publishedAt == null) return 'Unknown';
+    if (publishedAt == null) return StringsConstants.unknown.tr();
 
     final date = DateTime.tryParse(publishedAt);
-    if (date == null) return 'Unknown';
+    if (date == null) return StringsConstants.unknown.tr();
 
     final now = DateTime.now();
     final difference = now.difference(date);
 
     if (difference.inMinutes < 60) {
-      return '${difference.inMinutes} minutes ago';
+      return StringsConstants.minutesAgo
+          .tr(args: [difference.inMinutes.toString()]);
     } else if (difference.inHours < 24) {
-      return '${difference.inHours} hours ago';
+      return StringsConstants.hoursAgo
+          .tr(args: [difference.inHours.toString()]);
     } else {
-      return '${difference.inDays} days ago';
+      return StringsConstants.daysAgo.tr(args: [difference.inDays.toString()]);
     }
   }
 }

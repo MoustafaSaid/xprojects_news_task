@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
@@ -77,7 +79,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
                     child: Text(
-                      'Collections',
+                      StringsConstants.collections.tr(),
                       style: FontStyles.font36blackW900,
                     ),
                   ),
@@ -109,7 +111,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(32.w, 40.h, 32.w, 20.h),
                     child: Text(
-                      'Latest bookmarks',
+                      StringsConstants.latestBookmarks.tr(),
                       style: FontStyles.font36blackW900,
                     ),
                   ),
@@ -120,7 +122,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                           child: Padding(
                             padding: EdgeInsets.all(32.w),
                             child: Text(
-                              'No bookmarks yet. Start adding some!',
+                              '${StringsConstants.noBookmarksYet.tr()}. ${StringsConstants.startAddingSome.tr()}',
                               style: FontStyles.font16blackW400.copyWith(
                                 color: Colors.grey,
                               ),

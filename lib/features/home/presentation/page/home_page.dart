@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
@@ -237,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                         child: _featuredNews.isEmpty
                             ? Center(
                                 child: Text(
-                                'No featured news available',
+                                StringsConstants.noFeaturedNews.tr(),
                                 style: FontStyles.font16blackW400,
                               ))
                             : ListView.builder(
@@ -281,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                         child: _latestNews.isEmpty
                             ? Center(
                                 child: Text(
-                                'No latest news available',
+                                StringsConstants.noLatestNews.tr(),
                                 style: FontStyles.font16blackW400,
                               ))
                             : ListView.builder(
@@ -327,7 +329,7 @@ class _HomePageState extends State<HomePage> {
             // Handle see all action
           },
           child: Text(
-            'See All',
+            StringsConstants.seeAll.tr(),
             style: FontStyles.font14blackW400,
           ),
         ),
