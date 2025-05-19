@@ -419,7 +419,7 @@ class SearchResultsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${StringsConstants.videosCount.tr()} ($videoCount)',
+                  '$videoCount ${StringsConstants.videos.tr()}',
                   style: FontStyles.font26blackW400,
                 ),
                 SvgPicture.asset(
@@ -458,7 +458,7 @@ class SearchResultsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${StringsConstants.newsCount.tr()} ($newsCount)',
+                  '$newsCount ${StringsConstants.news.tr()}',
                   style: FontStyles.font26blackW400,
                 ),
                 SvgPicture.asset(
