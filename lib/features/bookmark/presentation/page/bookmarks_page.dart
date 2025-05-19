@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
+import 'package:xprojects_news_task/core/di/di.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/controller/cubit/bookmark_cubit.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/controller/states/bookmark_states.dart';
@@ -29,7 +31,6 @@ class _BookmarksPageState extends State<BookmarksPage> {
     return Scaffold(
       extendBody: true,
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: BlocBuilder<BookmarkCubit, BookmarkState>(
           builder: (context, state) {
@@ -143,8 +144,9 @@ class _BookmarksPageState extends State<BookmarksPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => BlocProvider(
-                                  create: (context) => NewsDetailsCubit()
-                                    ..loadArticleDetails(item),
+                                  create: (context) =>
+                                      NewsDetailsCubit(sl<BookmarkRepository>())
+                                        ..loadArticleDetails(item),
                                   child: NewsDetailsPage(article: item),
                                 ),
                               ),

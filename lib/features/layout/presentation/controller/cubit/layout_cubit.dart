@@ -20,7 +20,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
     BlocProvider(
       create: (context) => sl<HomeCubit>(),
       child: const HomePage(),
-    ), BlocProvider(
+    ),
+    BlocProvider(
       create: (context) => sl<BookmarkCubit>(),
       child: const BookmarksPage(),
     ),

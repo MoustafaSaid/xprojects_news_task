@@ -15,11 +15,12 @@ class NewsDetailsInitial extends NewsDetailsState {}
 // State for when the details are loaded
 class NewsDetailsLoaded extends NewsDetailsState {
   final ArticleModel article;
+  final bool isBookmarked;
 
-  const NewsDetailsLoaded(this.article);
+  const NewsDetailsLoaded(this.article, {this.isBookmarked = false});
 
   @override
-  List<Object?> get props => [article];
+  List<Object?> get props => [article, isBookmarked];
 }
 
 // State for when there's an error

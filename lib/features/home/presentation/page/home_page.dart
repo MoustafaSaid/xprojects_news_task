@@ -5,6 +5,7 @@ import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/controller/cubit/bookmark_cubit.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/page/bookmarks_page.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
@@ -42,7 +43,8 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => NewsDetailsCubit()..loadArticleDetails(article),
+          create: (context) => NewsDetailsCubit(sl<BookmarkRepository>())
+            ..loadArticleDetails(article),
           child: NewsDetailsPage(article: article),
         ),
       ),
