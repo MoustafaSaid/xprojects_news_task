@@ -35,9 +35,11 @@ class SettingsPage extends StatelessWidget {
                         trailing: Radio<String>(
                           value: 'en',
                           groupValue: state.language,
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             if (value != null) {
-                              context
+                              await context.setLocale(const Locale('en', 'US'));
+                              if (!context.mounted) return;
+                              await context
                                   .read<SettingsCubit>()
                                   .changeLanguage(value);
                             }
@@ -53,9 +55,11 @@ class SettingsPage extends StatelessWidget {
                         trailing: Radio<String>(
                           value: 'ar',
                           groupValue: state.language,
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             if (value != null) {
-                              context
+                              await context.setLocale(const Locale('ar', 'EG'));
+                              if (!context.mounted) return;
+                              await context
                                   .read<SettingsCubit>()
                                   .changeLanguage(value);
                             }

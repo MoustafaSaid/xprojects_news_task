@@ -372,6 +372,7 @@ class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+
       child: Container(
         height: 58.h,
         width: 287.w,

@@ -20,9 +20,9 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(SettingsLoaded(language: _currentLanguage));
   }
 
-  void changeLanguage(String language) {
+  Future<void> changeLanguage(String language) async {
     _currentLanguage = language;
-    _prefs.setString(_languageKey, language);
+    await _prefs.setString(_languageKey, language);
     emit(SettingsLoaded(language: _currentLanguage));
   }
 }
