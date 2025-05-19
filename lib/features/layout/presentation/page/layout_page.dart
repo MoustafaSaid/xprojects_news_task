@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/features/layout/presentation/controller/cubit/layout_cubit.dart';
 import 'package:xprojects_news_task/features/layout/presentation/controller/states/layout_states.dart';
 import 'package:xprojects_news_task/features/layout/presentation/widgets/bottom_nav_bar.dart';

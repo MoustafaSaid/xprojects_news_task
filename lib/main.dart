@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_source.dart';
 import 'package:xprojects_news_task/core/di/di.dart' as di;
-import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
-import 'package:xprojects_news_task/features/home/presentation/page/home_page.dart';
 import 'package:xprojects_news_task/features/layout/presentation/controller/cubit/layout_cubit.dart';
 import 'package:xprojects_news_task/features/layout/presentation/page/layout_page.dart';
 
