@@ -34,10 +34,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'News App',
-      theme: ThemeData(
-        useMaterial3: true,
-        splashColor: Colors.transparent
-      ),
+      theme: ThemeData(useMaterial3: true, splashColor: Colors.transparent),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       home: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return BlocProvider(
               create: (context) => di.sl<LayoutCubit>(),
-
               child: const LayoutPage());
         },
       ),

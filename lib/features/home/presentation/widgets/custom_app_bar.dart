@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 
@@ -17,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 10.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -58,10 +59,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 10);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + 10.h);
 }
-class CustomDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
+class CustomDetailsAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const CustomDetailsAppBar({
     super.key,
   });
@@ -70,7 +72,7 @@ class CustomDetailsAppBar extends StatelessWidget implements PreferredSizeWidget
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 10.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -80,8 +82,6 @@ class CustomDetailsAppBar extends StatelessWidget implements PreferredSizeWidget
                 IconsConstants.navBar,
               ),
             ),
-
-
           ],
         ),
       ),
@@ -89,5 +89,5 @@ class CustomDetailsAppBar extends StatelessWidget implements PreferredSizeWidget
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 10);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + 10.h);
 }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
@@ -90,25 +93,24 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 32.0),
+                        SizedBox(height: 32.h),
 
                         // Featured news shimmer
                         SizedBox(
-                          height: 311,
+                          height: 311.h,
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            padding:
-                                const EdgeInsets.only(left: 32.0, right: 32),
+                            padding: EdgeInsets.only(left: 32.w, right: 32.w),
                             itemCount: 3,
                             itemBuilder: (context, index) {
                               return Container(
                                 margin: EdgeInsets.only(
-                                    left: index == 0 ? 0 : 16.0),
+                                    left: index == 0 ? 0 : 16.w),
                                 child: FadeShimmer(
-                                  height: 311,
-                                  width: 311,
-                                  radius: 12,
+                                  height: 311.h,
+                                  width: 311.w,
+                                  radius: 12.r,
                                   fadeTheme: FadeTheme.light,
                                   highlightColor: Colors.grey[300]!,
                                   baseColor: Colors.grey[200]!,
@@ -118,26 +120,26 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
 
-                        const SizedBox(height: 40.0),
+                        SizedBox(height: 40.h),
 
                         // Latest News section header shimmer
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          padding: EdgeInsets.symmetric(horizontal: 32.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               FadeShimmer(
-                                height: 24,
-                                width: 120,
-                                radius: 4,
+                                height: 24.h,
+                                width: 120.w,
+                                radius: 4.r,
                                 fadeTheme: FadeTheme.light,
                                 highlightColor: Colors.grey[300]!,
                                 baseColor: Colors.grey[200]!,
                               ),
                               FadeShimmer(
-                                height: 16,
-                                width: 60,
-                                radius: 4,
+                                height: 16.h,
+                                width: 60.w,
+                                radius: 4.r,
                                 fadeTheme: FadeTheme.light,
                                 highlightColor: Colors.grey[300]!,
                                 baseColor: Colors.grey[200]!,
@@ -146,60 +148,60 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
 
-                        const SizedBox(height: 23),
+                        SizedBox(height: 23.h),
 
                         // Latest news list shimmer
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          padding: EdgeInsets.symmetric(horizontal: 32.w),
                           child: ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: 5,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 24.0),
+                                padding: EdgeInsets.only(bottom: 24.h),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     FadeShimmer(
-                                      height: 100,
-                                      width: 100,
-                                      radius: 16,
+                                      height: 100.h,
+                                      width: 100.w,
+                                      radius: 16.r,
                                       fadeTheme: FadeTheme.light,
                                       highlightColor: Colors.grey[300]!,
                                       baseColor: Colors.grey[200]!,
                                     ),
-                                    const SizedBox(width: 24.0),
+                                    SizedBox(width: 24.w),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           FadeShimmer(
-                                            height: 12,
-                                            width: 80,
-                                            radius: 4,
+                                            height: 12.h,
+                                            width: 80.w,
+                                            radius: 4.r,
                                             fadeTheme: FadeTheme.light,
                                             highlightColor: Colors.grey[300]!,
                                             baseColor: Colors.grey[200]!,
                                           ),
-                                          const SizedBox(height: 8.0),
+                                          SizedBox(height: 8.h),
                                           FadeShimmer(
-                                            height: 16,
+                                            height: 16.h,
                                             width: double.infinity,
-                                            radius: 4,
+                                            radius: 4.r,
                                             fadeTheme: FadeTheme.light,
                                             highlightColor: Colors.grey[300]!,
                                             baseColor: Colors.grey[200]!,
                                           ),
-                                          const SizedBox(height: 8.0),
+                                          SizedBox(height: 8.h),
                                           FadeShimmer(
-                                            height: 16,
+                                            height: 16.h,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
                                                 0.6,
-                                            radius: 4,
+                                            radius: 4.r,
                                             fadeTheme: FadeTheme.light,
                                             highlightColor: Colors.grey[300]!,
                                             baseColor: Colors.grey[200]!,
@@ -226,33 +228,31 @@ class _HomePageState extends State<HomePage> {
 
                 // The original UI structure is maintained
                 return SingleChildScrollView(
-                  // padding: const EdgeInsets.only(
-                  //     bottom: 80), // Add padding for bottom nav bar
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 32.0),
+                      SizedBox(height: 32.h),
 
                       // Featured news horizontal slider
                       SizedBox(
-                        height: 311,
+                        height: 311.h,
                         child: _featuredNews.isEmpty
                             ? Center(
                                 child: Text(
-                                'No featured news available',
+                                StringsConstants.noFeaturedNews.tr(),
                                 style: FontStyles.font16blackW400,
                               ))
                             : ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                padding: const EdgeInsets.only(
-                                    left: 32.0, right: 32),
+                                padding:
+                                    EdgeInsets.only(left: 32.w, right: 32.w),
                                 itemCount: _featuredNews.length,
                                 itemBuilder: (context, index) {
                                   final article = _featuredNews[index];
                                   return Container(
                                     margin: EdgeInsets.only(
-                                        left: index == 0 ? 0 : 16.0),
+                                        left: index == 0 ? 0 : 16.w),
                                     child: FeaturedNewsCard(
                                       category:
                                           article.source?.name ?? 'Unknown',
@@ -269,23 +269,21 @@ class _HomePageState extends State<HomePage> {
                               ),
                       ),
 
-                      const SizedBox(height: 40.0),
+                      SizedBox(height: 40.h),
 
                       // Latest News section
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        padding: EdgeInsets.symmetric(horizontal: 32.w),
                         child: buildSectionHeader('Latest News'),
                       ),
-                      SizedBox(
-                        height: 23,
-                      ),
+                      SizedBox(height: 23.h),
                       // Latest news list
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        padding: EdgeInsets.symmetric(horizontal: 32.w),
                         child: _latestNews.isEmpty
                             ? Center(
                                 child: Text(
-                                'No latest news available',
+                                StringsConstants.noLatestNews.tr(),
                                 style: FontStyles.font16blackW400,
                               ))
                             : ListView.builder(
@@ -331,7 +329,7 @@ class _HomePageState extends State<HomePage> {
             // Handle see all action
           },
           child: Text(
-            'See All',
+            StringsConstants.seeAll.tr(),
             style: FontStyles.font14blackW400,
           ),
         ),
@@ -374,13 +372,14 @@ class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+
       child: Container(
-        height: 58,
-        width: 287,
-        margin: EdgeInsets.symmetric(horizontal: 44, vertical: 35),
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+        height: 58.h,
+        width: 287.w,
+        margin: EdgeInsets.symmetric(horizontal: 44.w, vertical: 35.h),
+        padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(28.r),
           boxShadow: const [
             BoxShadow(
               color: Colors.black,

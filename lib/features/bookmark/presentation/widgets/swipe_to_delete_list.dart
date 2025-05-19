@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xprojects_news_task/features/bookmark/presentation/widgets/bookmark_news_card.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 
@@ -20,7 +21,7 @@ class SwipeToDeleteList extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(left: 32.0),
+      padding: EdgeInsets.only(left: 32.w),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final newsItem = items[index];
@@ -48,12 +49,12 @@ class SwipeToDeleteList extends StatelessWidget {
   // Background that shows when user swipes to delete
   Widget _buildDeleteBackground() {
     return Container(
-      height: 132,
+      height: 132.h,
       color: Color(0xff141E280A),
-      margin: EdgeInsets.only(bottom: 24.0),
+      margin: EdgeInsets.only(bottom: 24.h),
       alignment: Alignment.centerRight,
       padding: EdgeInsets.only(
-        right: 24.0,
+        right: 24.w,
       ),
       child: SvgPicture.asset("assets/icons/close-circle-outline.svg"),
     );

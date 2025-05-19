@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
+import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import '../controller/settings_cubit.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -12,31 +16,32 @@ class SettingsPage extends StatelessWidget {
         if (state is SettingsLoaded) {
           return Scaffold(
             backgroundColor: Colors.white,
-            
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Search Language',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Text(
+                      StringsConstants.searchLanguage.tr(),
+                      style: FontStyles.font22blackW800,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     Card(
                       color: Colors.white,
                       child: ListTile(
-                        title: const Text('English'),
+                        title: Text(StringsConstants.english.tr(),
+                            style: FontStyles.font16blackW400),
                         trailing: Radio<String>(
                           value: 'en',
                           groupValue: state.language,
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             if (value != null) {
-                              context.read<SettingsCubit>().changeLanguage(value);
+                              await context.setLocale(const Locale('en', 'US'));
+                              if (!context.mounted) return;
+                              await context
+                                  .read<SettingsCubit>()
+                                  .changeLanguage(value);
                             }
                           },
                         ),
@@ -44,15 +49,19 @@ class SettingsPage extends StatelessWidget {
                     ),
                     Card(
                       color: Colors.white,
-
                       child: ListTile(
-                        title: const Text('العربية'),
+                        title: Text(StringsConstants.arabic.tr(),
+                            style: FontStyles.font16blackW400),
                         trailing: Radio<String>(
                           value: 'ar',
                           groupValue: state.language,
-                          onChanged: (value) {
+                          onChanged: (value) async {
                             if (value != null) {
-                              context.read<SettingsCubit>().changeLanguage(value);
+                              await context.setLocale(const Locale('ar', 'EG'));
+                              if (!context.mounted) return;
+                              await context
+                                  .read<SettingsCubit>()
+                                  .changeLanguage(value);
                             }
                           },
                         ),

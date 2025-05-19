@@ -1,13 +1,32 @@
 {
-
-
   "appName": "تطبيق الاخبار",
   "latestNews": "احدث الاخبار",
   "latestBookmarks": "احدث المحفوظات",
   "collections": "المجموعات",
   "videos": "الفديوهات",
-  "news": "الاخبار"
-
-
-
+  "news": "الاخبار",
+  "unknown": "غير معروف",
+  "noTitle": "لا يوجد عنوان",
+  "minutesAgo": "منذ %d دقيقة",
+  "hoursAgo": "منذ %d ساعة",
+  "daysAgo": "منذ %d يوم",
+  "removedFromBookmarks": "تمت إزالته من المحفوظات",
+  "addedToBookmarks": "تمت الإضافة إلى المحفوظات",
+  "searchLanguage": "لغة البحث",
+  "english": "English",
+  "arabic": "العربية",
+  "virtualReality": "الواقع الافتراضي",
+  "recentSearches": "عمليات البحث الأخيرة",
+  "trendingTopics": "المواضيع الرائجة",
+  "noResultsFound": "لم يتم العثور على نتائج",
+  "videosCount": "%d فيديو",
+  "newsCount": "%d خبر",
+  "seeAll": "عرض الكل",
+  "noFeaturedNews": "لا توجد أخبار مميزة متاحة",
+  "noLatestNews": "لا توجد أخبار حديثة متاحة",
+  "noBookmarksYet": "لا توجد محفوظات بعد",
+  "startAddingSome": "ابدأ بإضافة بعض!",
+  "noDescriptionAvailable": "لا يوجد وصف متاح",
+  "noContentAvailable": "لا يوجد محتوى متاح",
+  "unknownAuthor": "مؤلف غير معروف"
 }

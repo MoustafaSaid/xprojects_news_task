@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:xprojects_news_task/core/constants/strings/strings_constants.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_events.dart';
+import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
 
@@ -65,7 +68,11 @@ class _BookmarkButtonState extends State<BookmarkButton> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            _isBookmarked ? 'Removed from bookmarks' : 'Added to bookmarks'),
+          _isBookmarked
+              ? StringsConstants.removedFromBookmarks.tr()
+              : StringsConstants.addedToBookmarks.tr(),
+          style: FontStyles.font14blackW400,
+        ),
         duration: Duration(seconds: 2),
       ),
     );
