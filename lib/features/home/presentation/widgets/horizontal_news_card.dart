@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
 import 'package:xprojects_news_task/core/constants/icons/icons_constants.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_events.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
@@ -31,11 +33,28 @@ class HorizontalNewsCard extends StatefulWidget {
 
 class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
   bool _isBookmarked = false;
+  StreamSubscription? _bookmarkSubscription;
+  final BookmarkEvents _bookmarkEvents = BookmarkEvents();
 
   @override
   void initState() {
     super.initState();
     _checkIfBookmarked();
+
+    // Subscribe to bookmark changes
+    _bookmarkSubscription = _bookmarkEvents.bookmarkChanges.listen((article) {
+      // Check if the changed article is the one in this widget
+      if (article.title == widget.article.title &&
+          article.url == widget.article.url) {
+        _checkIfBookmarked();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _bookmarkSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _checkIfBookmarked() async {
@@ -133,9 +152,9 @@ class _HorizontalNewsCardState extends State<HorizontalNewsCard> {
                     height: 67,
                     child: Text(
                       widget.title,
-                      style: FontStyles.font18blackW900.copyWith(letterSpacing: 0,height: 1.22),
+                      style: FontStyles.font18blackW900
+                          .copyWith(letterSpacing: 0, height: 1.22),
                       maxLines: 3,
-
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),

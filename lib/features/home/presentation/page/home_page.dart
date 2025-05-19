@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fade_shimmer/fade_shimmer.dart';
+import 'package:xprojects_news_task/core/constants/colors/colors_constants.dart';
+import 'package:xprojects_news_task/core/di/di.dart';
 import 'package:xprojects_news_task/core/theme/font/font_styles.dart';
+import 'package:xprojects_news_task/features/bookmark/presentation/controller/cubit/bookmark_cubit.dart';
+import 'package:xprojects_news_task/features/bookmark/presentation/page/bookmarks_page.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/cubit/home_cubit.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/states/home_states.dart';
@@ -50,12 +54,12 @@ class _HomePageState extends State<HomePage> {
         if (state.newsState == RequestState.loaded && state.newsData != null) {
           if (state.newsData!.articles != null) {
             setState(() {
-              final articles = state.newsData!.articles!;
-              if (articles.length > 3) {
-                _featuredNews = articles.sublist(0, 3);
-                _latestNews = articles.sublist(3);
-              } else {
+              final articles = state.newsData?.articles ?? [];
+              if (articles.length > 0) {
                 _featuredNews = articles;
+                _latestNews = articles;
+              } else {
+                _featuredNews = [];
                 _latestNews = [];
               }
             });
@@ -345,10 +349,18 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class CustomBottomNavBarWidget extends StatelessWidget {
+class CustomBottomNavBarWidget extends StatefulWidget {
   const CustomBottomNavBarWidget({
     super.key,
   });
+
+  @override
+  State<CustomBottomNavBarWidget> createState() =>
+      _CustomBottomNavBarWidgetState();
+}
+
+class _CustomBottomNavBarWidgetState extends State<CustomBottomNavBarWidget> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -372,85 +384,85 @@ class CustomBottomNavBarWidget extends StatelessWidget {
             ),
           ],
           color: Colors.white,
-          // color: Colors.red,
         ),
         child: BottomNavigationBar(
           enableFeedback: false,
-          currentIndex: 0,
+          currentIndex: _currentIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.black,
+          selectedItemColor: ColorsConstants.primaryColor,
           unselectedLabelStyle: FontStyles.font12blackW400.copyWith(
             color: Colors.grey,
           ),
           type: BottomNavigationBarType.fixed,
           elevation: 0,
           selectedLabelStyle: FontStyles.font12blackW400.copyWith(
-            color: Colors.blue,
+            color: ColorsConstants.primaryColor,
           ),
-          // backgroundColor: ColorsConstants.white,
           backgroundColor: Colors.transparent,
           onTap: (index) {
-            // Simplified navigation logic without actual pages
+            setState(() {
+              _currentIndex = index;
+            });
+
+            if (index == 1) {
+              // Navigate to Bookmarks page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
+                    create: (context) => sl<BookmarkCubit>(),
+                    child: BookmarksPage(),
+                  ),
+                ),
+              ).then((_) {
+                // Reset current index to 0 when returning from bookmarks
+                setState(() {
+                  _currentIndex = 0;
+                });
+              });
+            }
           },
           items: [
             BottomNavigationBarItem(
                 activeIcon: SvgPicture.asset(
                   'assets/icons/Home Icon.svg',
-                  // colorFilter: ColorFilter.mode(
-                  //     layoutCubit.bottomNavIndex == 0
-                  //         ? ColorsConstants.mainColor
-                  //         : Colors.grey,
-                  //     BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(
+                      ColorsConstants.primaryColor, BlendMode.srcIn),
                 ),
                 icon: SvgPicture.asset(
                   'assets/icons/Home Icon.svg',
-                  // colorFilter: ColorFilter.mode(
-                  //     layoutCubit.bottomNavIndex == 0
-                  //         ? ColorsConstants.mainColor
-                  //         : Colors.grey,
-                  //     BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'assets/icons/Bookmarks Icon.svg',
-                  // colorFilter: ColorFilter.mode(
-                  //     layoutCubit.bottomNavIndex == 1
-                  //         ? ColorsConstants.mainColor
-                  //         : Colors.grey,
-                  //     BlendMode.srcIn)),
+                  colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                ),
+                activeIcon: SvgPicture.asset(
+                  'assets/icons/Bookmarks Icon.svg',
+                  colorFilter: ColorFilter.mode(
+                      ColorsConstants.primaryColor, BlendMode.srcIn),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'assets/icons/Search Icon.svg',
-                  // colorFilter: ColorFilter.mode(
-                  //     layoutCubit.bottomNavIndex == 1
-                  //         ? ColorsConstants.mainColor
-                  //         : Colors.grey,
-                  //     BlendMode.srcIn)),
+                  colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'assets/icons/Notifications Icon.svg',
-                  // colorFilter: ColorFilter.mode(
-                  //     layoutCubit.bottomNavIndex == 1
-                  //         ? ColorsConstants.mainColor
-                  //         : Colors.grey,
-                  //     BlendMode.srcIn)),
+                  colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'assets/icons/Settings Icon.svg',
-                  // colorFilter: ColorFilter.mode(
-                  //     layoutCubit.bottomNavIndex == 1
-                  //         ? ColorsConstants.mainColor
-                  //         : Colors.grey,
-                  //     BlendMode.srcIn)),
+                  colorFilter: ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
                 label: ""),
           ],

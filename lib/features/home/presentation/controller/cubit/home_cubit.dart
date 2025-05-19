@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xprojects_news_task/core/local_data_source/bookmark_repository.dart';
+import 'package:xprojects_news_task/core/local_data_source/bookmark_events.dart';
 import 'package:xprojects_news_task/features/home/data/models/news_response_model.dart';
 import 'package:xprojects_news_task/features/home/domain/repo/home_repo.dart';
 import 'package:xprojects_news_task/features/home/presentation/controller/states/home_states.dart';
@@ -7,14 +8,21 @@ import 'package:xprojects_news_task/features/home/presentation/controller/states
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo homeRepo;
   final BookmarkRepository bookmarkRepository;
+  final BookmarkEvents _bookmarkEvents = BookmarkEvents();
 
   HomeCubit({
     required this.homeRepo,
     required this.bookmarkRepository,
-  }) : super(const HomeState());
+  }) : super(const HomeState()) {
+    // Listen to bookmark changes
+    _bookmarkEvents.bookmarkChanges.listen((article) {
+      // When a bookmark changes, emit a new state to update UI
+      emit(state.copyWith());
+    });
+  }
 
   Future<void> getNews({
-    String query = 'barcelona',
+    String query = "sports",
     String from = '2025-5-1',
     String sortBy = 'publishedAt',
     String apiKey = 'e4941a26a6ed466db07bce82adb1bbd6',
@@ -54,6 +62,10 @@ class HomeCubit extends Cubit<HomeState> {
     } else {
       await bookmarkRepository.addBookmark(article);
     }
+
+    // Notify other parts of the app about the bookmark change
+    _bookmarkEvents.notifyBookmarkChanged(article);
+
     // Emit the state to refresh UI
     emit(state.copyWith());
   }

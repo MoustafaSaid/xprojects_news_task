@@ -8,6 +8,7 @@ import 'package:xprojects_news_task/core/local_data_source/bookmark_repository_i
 import 'package:xprojects_news_task/core/local_data_source/user_preference_repo.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_repo_impl.dart';
 import 'package:xprojects_news_task/core/local_data_source/user_preference_source.dart';
+import 'package:xprojects_news_task/features/bookmark/presentation/controller/cubit/bookmark_cubit.dart';
 import 'package:xprojects_news_task/features/home/data/data_source/remote/home_remote_data_source.dart';
 import 'package:xprojects_news_task/features/home/data/models/bookmarked_article_model.dart';
 import 'package:xprojects_news_task/features/home/data/repo_impl/home_repo_impl.dart';
@@ -51,6 +52,13 @@ Future<void> init({required Box userPreferenceBox}) async {
   sl.registerFactory<HomeCubit>(
     () => HomeCubit(
       homeRepo: sl<HomeRepo>(),
+      bookmarkRepository: sl<BookmarkRepository>(),
+    ),
+  );
+
+  // Bookmark Cubit
+  sl.registerFactory<BookmarkCubit>(
+    () => BookmarkCubit(
       bookmarkRepository: sl<BookmarkRepository>(),
     ),
   );
